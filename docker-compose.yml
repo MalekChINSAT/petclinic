@@ -29,6 +29,8 @@ services:
     ports:
       - "9000:9000"
       - "9092:9092"
+    networks:
+      - PetClinic
     volumes:
       - sonarqube_data:/opt/sonarqube/data
       - sonarqube_conf:/opt/sonarqube/conf
@@ -51,6 +53,8 @@ services:
     image: postgres:15.3
     ports:
       - "5432:5432"
+    networks:
+      - PetClinic
     environment:
       - POSTGRES_PASSWORD=sonar
       - POSTGRES_USER=sonar
