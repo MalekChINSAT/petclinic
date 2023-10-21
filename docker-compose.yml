@@ -1,6 +1,22 @@
 version: "2.2"
-
+networks:
+    PetClinic:
 services:
+  jenkins:
+    image: jenkins/jenkins:lts
+    privileged: true
+    ports:
+      - "8085:8080"
+      - "50000:50000"
+    networks:
+      - PetClinic
+    volumes:
+      - /var/lib/docker/volumes/jenkins_home/_data:/var/jenkins_home
+      - /usr/bin/docker:/usr/bin/docker
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - mysql
+    restart: always
   mysql:
     image: mysql:8.0
     ports:
@@ -13,8 +29,6 @@ services:
       - MYSQL_DATABASE=petclinic
     volumes:
       - "./conf.d:/etc/mysql/conf.d:ro"
-    profiles:
-    - mysql
   postgres:
     image: postgres:15.3
     ports:
@@ -23,5 +37,5 @@ services:
       - POSTGRES_PASSWORD=petclinic
       - POSTGRES_USER=petclinic
       - POSTGRES_DB=petclinic
-    profiles:
-    - postgres
+
+
