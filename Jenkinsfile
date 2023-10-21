@@ -11,6 +11,20 @@ pipeline {
                 sh 'mvn clean package'
             }
         }
+        stage('Run Unit Test') {
+            steps{
+                sh "mvn test"
+                junit 'target/surefire-reports/*.xml'
+            }
+        }
+        stage('SonarQube Analysis') {
+            steps{
+                withSonarQubeEnv('SonarQube') {
+                    sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=petclinic-pipeline -Dsonar.projectName='petclinic-pipeline'"
+                    sh "mvn clean verify sonar:sonar -Dsonar.projectKey=petclinic-pipeline -Dsonar.projectName='petclinic-pipeline -Dsonar.host.url=http://localhost:9000 -Dsonar.token=sqp_70c7f627d541990c129b7f95cc965a1d14f51ca3"
+                }
+            }
+        }
         stage('Build docker image'){
             steps{
                 script{
