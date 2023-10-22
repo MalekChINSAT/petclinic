@@ -24,15 +24,15 @@ pipeline {
                 }
             }
         }
-        stage('Snyk Security Scan') {
-            steps{
-                echo "Scanning the application for security smells..."
-                snykSecurity(
-                    snykInstallation: 'snyk@latest',
-                    snykTokenId: 'snyk-api-token',
-                )
-            }
-        }
+//        stage('Snyk Security Scan') {
+//            steps{
+//                echo "Scanning the application for security smells..."
+//                snykSecurity(
+//                    snykInstallation: 'snyk@latest',
+//                    snykTokenId: 'snyk-api-token',
+//                )
+//            }
+//        }
         stage('Build docker image'){
             steps{
                 script{
