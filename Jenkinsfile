@@ -24,6 +24,16 @@ pipeline {
                 }
             }
         }
+        stage('Snyk Security Scan') {
+            steps{
+                echo "Scanning the application for security smells..."
+                snykSecurity(
+                    snykInstallation: 'snyk@latest',
+                    snykTokenId: '1383b870-9fbd-4e03-a03c-39011d9a1663',
+                )
+
+            }
+        }
         stage('Build docker image'){
             steps{
                 script{
