@@ -3,7 +3,7 @@ networks:
     PetClinic:
 services:
   jenkins:
-    image: jenkins-docker
+    image: jenkins/jenkins:lts
     privileged: true
     ports:
       - "8085:8080"
