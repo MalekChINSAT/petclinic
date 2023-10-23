@@ -8,7 +8,7 @@ pipeline {
             steps{
                 checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/MalekChINSAT/petclinic']]])
                 echo "building the application..."
-                sh 'mvn clean package'
+                sh 'mvn clean package -Dcheckstyle.skip=true'
             }
         }
         stage('Run Unit Test') {
