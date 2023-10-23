@@ -46,9 +46,9 @@ pipeline {
                 script{
                     withCredentials([usernamePassword(credentialsId: 'malek-dockerhub', passwordVariable: 'pass', usernameVariable: 'username')]) {
                         sh 'docker login -u ${username} -p ${pass}'
+                        sh 'docker push malek/pet-clinic:latest'
 
                     }
-                    sh 'docker push malek/pet-clinic:latest'
                 }
             }
         }
