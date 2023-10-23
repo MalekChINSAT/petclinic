@@ -37,7 +37,7 @@ pipeline {
             steps{
                 script{
                     echo "building the docker image..."
-                    sh 'docker build -t malek/pet-clinic:latest .'
+                    sh 'docker build -t malekinsat/pet-clinic:latest .'
                 }
             }
         }
@@ -46,11 +46,7 @@ pipeline {
                 script{
                     withCredentials([usernamePassword(credentialsId: 'malek-dockerhub', passwordVariable: 'pass', usernameVariable: 'username')]) {
                         sh 'docker login -u ${username} -p ${pass}'
-//                        sh 'docker push malek/pet-clinic:latest'
-                        docker.withRegistry('http://registry.hub.docker.com/', 'malek-dockerhub') {
-                            // Push your image now
-                            sh 'docker push malek/pet-clinic:latest'
-                        }
+                        sh 'docker push malekinsat/pet-clinic:latest'
                     }
                 }
             }
