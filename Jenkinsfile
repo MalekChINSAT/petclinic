@@ -44,7 +44,6 @@ pipeline {
         stage('Push image to Docker Hub'){
             steps{
                 script{usernameColonPassword
-
                     withCredentials([usernamePassword(credentialsId: 'malek-dockerhub', variable: 'dockerhubpwd')]) {
                         sh 'docker login -u malekinsat -p ${dockerhubpwd}'
 
