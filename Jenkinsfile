@@ -44,8 +44,8 @@ pipeline {
         stage('Push image to Docker Hub'){
             steps{
                 script{
-                    withCredentials([usernamePassword(credentialsId: 'malek-dockerhub', passwordVariable: 'pass', usernameVariable: 'pass')]) {
-                        sh 'docker login -u ${pass} -p ${pass}'
+                    withCredentials([usernamePassword(credentialsId: 'malek-dockerhub', passwordVariable: 'pass', usernameVariable: 'username')]) {
+                        sh 'docker login -u ${username} -p ${pass}'
 
                     }
                     sh 'docker push malek/pet-clinic:latest'
