@@ -1,6 +1,9 @@
 version: "2.2"
 networks:
     PetClinic:
+    minikube:
+      name: minikube
+      external: true
 services:
   jenkins:
     image: jenkins/jenkins:lts
@@ -10,6 +13,7 @@ services:
       - "50000:50000"
     networks:
       - PetClinic
+      - minikube
     volumes:
       - /var/lib/docker/volumes/jenkins_home/_data:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock

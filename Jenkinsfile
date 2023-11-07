@@ -51,10 +51,11 @@ pipeline {
                 }
             }
         }
-        stage('deploy') {
+        stage('Deploying App to Kubernetes') {
             steps {
                 script {
-                    echo 'deploying the application...'
+                    echo 'deploying the application to Kubernetes'
+                    kubernetesDeploy(configs: "app-deployment.yml", kubeconfigId: "kubernetes")
                 }
             }
         }
