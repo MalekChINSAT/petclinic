@@ -66,6 +66,7 @@ pipeline {
                             sh "ssh Malek@https://127.0.0.1:60610 kubectl create -f ."
                         }
                     }
+                }
             }
         }
     }
