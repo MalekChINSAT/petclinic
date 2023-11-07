@@ -55,11 +55,18 @@ pipeline {
             steps {
                 script {
                     echo 'deploying the application to Kubernetes'
-//                  kubernetesDeploy(configs: "app-deployment.yml", kubeconfigId: "kubernetes")
-
-                    //it's a minimalist simple example to do Rolling update deployment with Jenkin & K8s
-                    sh "kubectl apply -f app-deployment.yml"
-                }
+                    sshagent(['k8s']) {
+                        //we need SSH into the actual machine running the master node of the cluster
+                        // will copy our deployment.yml file into the kubernetes cluster
+                        sh "scp -o StrictHostKeyChecking=no app-deployment.yml Malek@https://127.0.0.1:60610:/home"
+                        script {
+                            try{
+                                sh "ssh Malek@https://127.0.0.1:60610 kubectl apply -f ."
+                            }catch(error){
+                                sh "ssh Malek@https://127.0.0.1:60610 kubectl create -f ."
+                            }
+                        }
+                    }
             }
         }
     }
