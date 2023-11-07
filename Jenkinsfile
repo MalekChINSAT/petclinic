@@ -55,7 +55,10 @@ pipeline {
             steps {
                 script {
                     echo 'deploying the application to Kubernetes'
-                    kubernetesDeploy(configs: "app-deployment.yml", kubeconfigId: "kubernetes")
+//                  kubernetesDeploy(configs: "app-deployment.yml", kubeconfigId: "kubernetes")
+
+                    //it's a minimalist simple example to do Rolling update deployment with Jenkin & K8s
+                    sh "kubectl apply -f app-deployment.yml"
                 }
             }
         }
