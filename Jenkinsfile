@@ -55,16 +55,15 @@ pipeline {
             steps {
                 script {
                     echo 'deploying the application to Kubernetes'
-                    sshagent(['k8s']) {
+                    sshagent(['K8s']) {
                         //we need SSH into the actual machine running the master node of the cluster
                         // will copy our deployment.yml file into the kubernetes cluster
                         sh "scp -o StrictHostKeyChecking=no app-deployment.yml Malek@https://127.0.0.1:60610:/home"
-                        script {
-                            try{
-                                sh "ssh Malek@https://127.0.0.1:60610 kubectl apply -f ."
-                            }catch(error){
-                                sh "ssh Malek@https://127.0.0.1:60610 kubectl create -f ."
-                            }
+                        try{
+                            sh "ssh Malek@https://127.0.0.1:60610 kubectl apply -f ."
+                        }catch(error){
+                            // if resource does not exist in the first place
+                            sh "ssh Malek@https://127.0.0.1:60610 kubectl create -f ."
                         }
                     }
             }
