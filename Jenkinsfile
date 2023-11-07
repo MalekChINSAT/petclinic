@@ -58,7 +58,7 @@ pipeline {
                     sshagent(['K8s']) {
                         //we need SSH into the actual machine running the master node of the cluster
                         // will copy our deployment.yml file into the kubernetes cluster
-                        sh "scp -o StrictHostKeyChecking=no app-deployment.yml Malek@https://127.0.0.1:60610:/home"
+                        sh "scp -o StrictHostKeyChecking=no app-deployment.yml Malek@172.23.0.3"
                         try{
                             sh "ssh Malek@https://127.0.0.1:60610 kubectl apply -f ."
                         }catch(error){
