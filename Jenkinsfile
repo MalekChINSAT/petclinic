@@ -55,10 +55,10 @@ pipeline {
             steps {
                 script {
                     echo 'deploying the application to Kubernetes'
-                    sshagent(['K8s']) {
+                    sshagent(credentials: ['ssh-id']) {
                         //we need SSH into the actual machine running the master node of the cluster
                         // will copy our deployment.yml file into the kubernetes cluster
-//                         sh "scp -o StrictHostKeyChecking=no Malek@192.168.0.158:/Users/Malek/app-deployment.yml /var/jenkins_home"
+//                      sh "scp -o StrictHostKeyChecking=no Malek@192.168.0.158:/Users/Malek/app-deployment.yml /var/jenkins_home"
                         try{
                             sh "ssh -o StrictHostKeyChecking=no Malek@192.168.0.158 /usr/local/bin/kubectl apply -f /Users/Malek/app-deployment.yml"
                         }catch(error){
