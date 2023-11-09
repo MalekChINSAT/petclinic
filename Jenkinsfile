@@ -58,12 +58,12 @@ pipeline {
                     sshagent(['K8s']) {
                         //we need SSH into the actual machine running the master node of the cluster
                         // will copy our deployment.yml file into the kubernetes cluster
-                        sh "scp -o StrictHostKeyChecking=no Malek@192.168.0.158:/Users/Malek/app-deployment.yml /var/jenkins_home"
+//                         sh "scp -o StrictHostKeyChecking=no Malek@192.168.0.158:/Users/Malek/app-deployment.yml /var/jenkins_home"
                         try{
-                            sh "ssh -o StrictHostKeyChecking=no Malek@192.168.0.158 /usr/local/bin/kubectl apply -f app-deployment.yml"
+                            sh "ssh -o StrictHostKeyChecking=no Malek@192.168.0.158 /usr/local/bin/kubectl apply -f /Users/Malek/app-deployment.yml"
                         }catch(error){
                             // if resource does not exist in the first place
-                            sh "ssh -o StrictHostKeyChecking=no Malek@192.168.0.158 /usr/local/bin/kubectl create -f app-deployment.yml"
+                            sh "ssh -o StrictHostKeyChecking=no Malek@192.168.0.158 /usr/local/bin/kubectl create -f /Users/Malek/app-deployment.yml"
                         }
                     }
                 }
