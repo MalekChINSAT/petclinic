@@ -55,7 +55,7 @@ pipeline {
             steps {
                 script {
                     echo 'deploying the application to Kubernetes'
-                    sshagent(credentials: ['ssh-id']) {
+                    sshagent(['ssh-id']) {
                         //we need SSH into the actual machine running the master node of the cluster
                         // will copy our deployment.yml file into the kubernetes cluster
 //                      sh "scp -o StrictHostKeyChecking=no Malek@192.168.0.158:/Users/Malek/app-deployment.yml /var/jenkins_home"
