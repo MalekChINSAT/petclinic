@@ -57,13 +57,11 @@ pipeline {
                     echo 'deploying the application to Kubernetes'
                     //we need SSH into the actual machine running the master node of the cluster
                     //ssh -o StrictHostKeyChecking=no Malek@192.168.137.78 /usr/local/bin/kubectl apply -f /Users/Malek/app-deployment.yml
-                    sshagent(['ssh-id']) {
-                        try{
-                            sh "ssh -v -o StrictHostKeyChecking=no Malek@192.168.137.78 /usr/local/bin/kubectl apply -f /Users/Malek/app-deployment.yml"
-                        }catch(error){
-                            // if resource does not exist in the first place
-                            sh "ssh -v -o StrictHostKeyChecking=no Malek@192.168.137.78 /usr/local/bin/kubectl create -f /Users/Malek/app-deployment.yml"
-                        }
+                    try{
+                        sh "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no Malek@192.168.137.78 /usr/local/bin/kubectl apply -f /Users/Malek/app-deployment.yml"
+                    }catch(error){
+                        // if resource does not exist in the first place
+                        sh "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no Malek@192.168.137.78 /usr/local/bin/kubectl create -f /Users/Malek/app-deployment.yml"
                     }
                 }
             }
