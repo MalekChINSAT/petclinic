@@ -59,10 +59,10 @@ pipeline {
                     //ssh -o StrictHostKeyChecking=no Malek@192.168.137.78 /usr/local/bin/kubectl apply -f /Users/Malek/app-deployment.yml
                     sshagent(['ssh-id']) {
                         try{
-                            sh "ssh -o StrictHostKeyChecking=no Malek@192.168.137.78 /usr/local/bin/kubectl apply -f /Users/Malek/app-deployment.yml"
+                            sh "ssh -v -o StrictHostKeyChecking=no Malek@192.168.137.78 /usr/local/bin/kubectl apply -f /Users/Malek/app-deployment.yml"
                         }catch(error){
                             // if resource does not exist in the first place
-                            sh "ssh -o StrictHostKeyChecking=no Malek@192.168.137.78 /usr/local/bin/kubectl create -f /Users/Malek/app-deployment.yml"
+                            sh "ssh -v -o StrictHostKeyChecking=no Malek@192.168.137.78 /usr/local/bin/kubectl create -f /Users/Malek/app-deployment.yml"
                         }
                     }
                 }
