@@ -19,7 +19,7 @@ pipeline {
         }
         stage('Run Load Test') {
             steps{
-                jmeter "./src/test/jmeter/petclinic_test_plan.jmx"
+                sh "jmeter -n -t ./src/test/jmeter/petclinic_test_plan.jmx -l results.csv"
             }
         }
         stage('SonarQube Analysis') {
