@@ -11,10 +11,15 @@ pipeline {
                 sh 'mvn clean package -Dcheckstyle.skip=true'
             }
         }
-        stage('Run Unit Test') {
+        stage('Run Unit and Integration Tests') {
             steps{
                 sh "mvn test -Dcheckstyle.skip=true"
                 junit 'target/surefire-reports/*.xml'
+            }
+        }
+        stage('Run Load Test') {
+            steps{
+                sh "jmeter -n -t ./src/test/jmeter/petclinic_test_plan.jmx"
             }
         }
         stage('SonarQube Analysis') {
